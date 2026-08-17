@@ -99,11 +99,11 @@ export function cargarEstilosBlindados(dbEstilosStr) {
     if (raw) localEstilos = JSON.parse(raw);
   } catch {}
 
-  // Fusión de estilos DB Nube + LocalStorage (LocalStorage prevalece localmente si hay ediciones offline)
-  const mergedRaw = { ...dbEstilos };
-  Object.keys(localEstilos).forEach(k => {
-    if (localEstilos[k]) {
-      mergedRaw[k] = { ...(dbEstilos[k] || {}), ...localEstilos[k] };
+  // Fusión de estilos: La Nube DB siempre prevalece para homologación total en todos los dispositivos
+  const mergedRaw = { ...localEstilos, ...dbEstilos };
+  Object.keys(dbEstilos).forEach(k => {
+    if (dbEstilos[k]) {
+      mergedRaw[k] = { ...(localEstilos[k] || {}), ...dbEstilos[k] };
     }
   });
 
