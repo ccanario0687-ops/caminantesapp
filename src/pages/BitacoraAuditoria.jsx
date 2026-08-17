@@ -48,8 +48,26 @@ export default function BitacoraAuditoria() {
       }
     };
 
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        cargarLogs();
+      }
+    };
+
     window.addEventListener("emaus_audit_log_added", handleLogAdded);
-    return () => window.removeEventListener("emaus_audit_log_added", handleLogAdded);
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    const interval = setInterval(() => {
+      if (document.visibilityState === "visible") {
+        cargarLogs();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener("emaus_audit_log_added", handleLogAdded);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      clearInterval(interval);
+    };
   }, []);
 
   const cargarLogs = async () => {

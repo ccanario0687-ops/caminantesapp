@@ -18,13 +18,31 @@ export default function useOffline(entityName) {
   useEffect(() => {
     const goOnline = () => setOnline(true);
     const goOffline = () => setOnline(false);
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && navigator.onLine) {
+        reload();
+      }
+    };
+
     window.addEventListener("online", goOnline);
     window.addEventListener("offline", goOffline);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Polling ligero en segundo plano cada 12 segundos para sincronizar cambios de otros dispositivos
+    const interval = setInterval(() => {
+      if (document.visibilityState === "visible" && navigator.onLine && !syncInProgress.current) {
+        reload();
+      }
+    }, 12000);
+
     return () => {
       window.removeEventListener("online", goOnline);
       window.removeEventListener("offline", goOffline);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      clearInterval(interval);
     };
-  }, []);
+  }, [reload]);
 
   const reload = useCallback(async () => {
     setLoading(true);

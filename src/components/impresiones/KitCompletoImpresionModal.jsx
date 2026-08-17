@@ -86,20 +86,16 @@ export default function KitCompletoImpresionModal({
   const printRef = useRef(null);
 
   useEffect(() => {
-    if (!configProp) {
-      base44.entities.ConfigRetiro.list().then(cfgs => {
-        if (cfgs.length > 0) {
-          setConfig(cfgs[0]);
-          setEstilosPorTipo(cargarEstilosBlindados(cfgs[0].estilos_impresion));
-        } else {
-          setEstilosPorTipo(cargarEstilosBlindados());
-        }
-      }).catch(() => {
-        setEstilosPorTipo(cargarEstilosBlindados());
-      });
-    } else {
-      setEstilosPorTipo(cargarEstilosBlindados(configProp.estilos_impresion));
-    }
+    base44.entities.ConfigRetiro.list().then(cfgs => {
+      if (cfgs.length > 0) {
+        setConfig(cfgs[0]);
+        setEstilosPorTipo(cargarEstilosBlindados(cfgs[0].estilos_impresion));
+      } else {
+        setEstilosPorTipo(cargarEstilosBlindados(configProp?.estilos_impresion));
+      }
+    }).catch(() => {
+      setEstilosPorTipo(cargarEstilosBlindados(configProp?.estilos_impresion));
+    });
   }, [configProp]);
 
   // Lista de mesas o equipos únicos para filtrar
