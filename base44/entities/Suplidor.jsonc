@@ -1,0 +1,114 @@
+{
+  "name": "Suplidor",
+  "type": "object",
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "description": "Nombre de la empresa o suplidor"
+    },
+    "contacto": {
+      "type": "string",
+      "description": "Nombre de la persona de contacto"
+    },
+    "telefono": {
+      "type": "string",
+      "description": "Tel\u00e9fono de contacto"
+    },
+    "provincia": {
+      "type": "string",
+      "description": "Provincia donde opera el suplidor"
+    },
+    "renglon": {
+      "type": "string",
+      "enum": [
+        "Bebidas y Alimentos",
+        "Log\u00edstica",
+        "Sonido y Audiovisual",
+        "Papeler\u00eda",
+        "Transporte",
+        "Imprenta",
+        "Uniformes",
+        "Decoraci\u00f3n",
+        "Tecnolog\u00eda",
+        "Otro"
+      ],
+      "description": "Rengl\u00f3n o categor\u00eda del suplidor",
+      "default": "Otro"
+    },
+    "producto_servicio": {
+      "type": "string",
+      "description": "Descripci\u00f3n del producto o servicio que ofrece"
+    },
+    "email": {
+      "type": "string",
+      "description": "Correo electr\u00f3nico"
+    },
+    "direccion": {
+      "type": "string",
+      "description": "Direcci\u00f3n de la empresa"
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas adicionales"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "nombre",
+    "provincia",
+    "producto_servicio"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    }
+  }
+}

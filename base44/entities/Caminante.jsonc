@@ -1,0 +1,286 @@
+{
+  "name": "Caminante",
+  "type": "object",
+  "properties": {
+    "numero_ficha": {
+      "type": "number",
+      "description": "N\u00famero de ficha del caminante (auto-generado)"
+    },
+    "nombre": {
+      "type": "string",
+      "description": "Nombre completo del caminante"
+    },
+    "apodo": {
+      "type": "string",
+      "description": "Apodo o nombre con el que se le conoce"
+    },
+    "cedula": {
+      "type": "string",
+      "description": "N\u00famero de c\u00e9dula de identidad"
+    },
+    "estado_civil": {
+      "type": "string",
+      "description": "Estado civil del caminante"
+    },
+    "edad": {
+      "type": "number",
+      "description": "Edad del caminante"
+    },
+    "fecha_nacimiento": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha de nacimiento del caminante"
+    },
+    "genero": {
+      "type": "string",
+      "enum": [
+        "Masculino",
+        "Femenino"
+      ],
+      "description": "G\u00e9nero del caminante"
+    },
+    "ocupacion": {
+      "type": "string",
+      "description": "Ocupaci\u00f3n u oficio del caminante"
+    },
+    "email": {
+      "type": "string",
+      "description": "Correo electr\u00f3nico del caminante"
+    },
+    "telefono": {
+      "type": "string",
+      "description": "N\u00famero de tel\u00e9fono"
+    },
+    "direccion": {
+      "type": "string",
+      "description": "Direcci\u00f3n de residencia"
+    },
+    "calle": {
+      "type": "string",
+      "description": "Calle de residencia"
+    },
+    "sector": {
+      "type": "string",
+      "description": "Sector o barrio de residencia"
+    },
+    "municipio": {
+      "type": "string",
+      "description": "Municipio de residencia"
+    },
+    "provincia": {
+      "type": "string",
+      "description": "Provincia de residencia"
+    },
+    "parroquia": {
+      "type": "string",
+      "description": "Parroquia de procedencia"
+    },
+    "padrino_madrina": {
+      "type": "string",
+      "description": "Nombre del padrino o madrina"
+    },
+    "telefono_padrino": {
+      "type": "string",
+      "description": "Tel\u00e9fono del padrino o madrina"
+    },
+    "contacto_emergencia": {
+      "type": "string",
+      "description": "Nombre del contacto de emergencia"
+    },
+    "relacion_emergencia": {
+      "type": "string",
+      "description": "Relaci\u00f3n del contacto de emergencia con el caminante (ej: Madre, Esposa, Hermano)"
+    },
+    "telefono_emergencia": {
+      "type": "string",
+      "description": "Tel\u00e9fono del contacto de emergencia"
+    },
+    "bautismo": {
+      "type": "boolean",
+      "default": false,
+      "description": "Indica si ha recibido el sacramento del Bautismo"
+    },
+    "confirmacion": {
+      "type": "boolean",
+      "default": false,
+      "description": "Indica si ha recibido el sacramento de la Confirmaci\u00f3n"
+    },
+    "comunion": {
+      "type": "boolean",
+      "default": false,
+      "description": "Indica si ha recibido el sacramento de la Primera Comuni\u00f3n"
+    },
+    "matrimonio": {
+      "type": "boolean",
+      "default": false,
+      "description": "Indica si ha recibido el sacramento del Matrimonio"
+    },
+    "sacramento": {
+      "type": "string",
+      "description": "Sacramento principal (inscripci\u00f3n remota)"
+    },
+    "rol_en_mesa": {
+      "type": "string",
+      "enum": [
+        "Caminante",
+        "L\u00edder de Mesa"
+      ],
+      "default": "Caminante",
+      "description": "Rol del participante en la mesa"
+    },
+    "numero_mesa": {
+      "type": "number",
+      "description": "N\u00famero de mesa asignada"
+    },
+    "numero_habitacion": {
+      "type": "number",
+      "description": "N\u00famero de habitaci\u00f3n asignada"
+    },
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero de retiro al que pertenece"
+    },
+    "talla_camisa": {
+      "type": "string",
+      "enum": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL",
+        "XXXL"
+      ],
+      "description": "Talla de camisa"
+    },
+    "tipo_sangre": {
+      "type": "string",
+      "enum": [
+        "A+",
+        "A-",
+        "B+",
+        "B-",
+        "AB+",
+        "AB-",
+        "O+",
+        "O-"
+      ],
+      "description": "Tipo de sangre"
+    },
+    "necesidades_medicas": {
+      "type": "string",
+      "description": "Condiciones m\u00e9dicas o alergias relevantes"
+    },
+    "peso_kg": {
+      "type": "number",
+      "description": "Peso en kilogramos (para c\u00e1lculo de IMC)"
+    },
+    "talla_cm": {
+      "type": "number",
+      "description": "Talla/estatura en cent\u00edmetros"
+    },
+    "condicion_fisica": {
+      "type": "string",
+      "enum": [
+        "Ninguna",
+        "Movilidad reducida",
+        "Usa bast\u00f3n/andador",
+        "Silla de ruedas",
+        "Otra"
+      ],
+      "default": "Ninguna",
+      "description": "Condici\u00f3n f\u00edsica que requiere consideraci\u00f3n especial"
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "Confirmado",
+        "Pendiente",
+        "Cancelado",
+        "Lista de Espera",
+        "No Asistir\u00e1"
+      ],
+      "default": "Pendiente",
+      "description": "Estado del registro"
+    },
+    "pago_ficha": {
+      "type": "string",
+      "enum": [
+        "Pendiente",
+        "Pagado"
+      ],
+      "default": "Pendiente",
+      "description": "Estado de pago de ficha"
+    },
+    "presente": {
+      "type": "boolean",
+      "default": false,
+      "description": "Indica si el caminante hizo entrada al retiro"
+    },
+    "hora_entrada": {
+      "type": "string",
+      "description": "Hora en que se registr\u00f3 la entrada al retiro"
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas adicionales"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "nombre"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    }
+  }
+}

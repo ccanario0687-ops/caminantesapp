@@ -1,0 +1,67 @@
+{
+  "name": "Plan",
+  "type": "object",
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "description": "Nombre del plan (Ej: Gratuito, B\u00e1sico, Premium)"
+    },
+    "precio_mensual": {
+      "type": "number",
+      "description": "Precio mensual en USD",
+      "default": 0
+    },
+    "descripcion": {
+      "type": "string",
+      "description": "Descripci\u00f3n breve del plan"
+    },
+    "modulos": {
+      "type": "string",
+      "description": "JSON con lista de m\u00f3dulos incluidos en el plan"
+    },
+    "limite_caminantes": {
+      "type": "number",
+      "description": "L\u00edmite de caminantes por retiro (0 = ilimitado)"
+    },
+    "limite_usuarios": {
+      "type": "number",
+      "description": "L\u00edmite de usuarios del sistema (0 = ilimitado)"
+    },
+    "activo": {
+      "type": "boolean",
+      "default": true,
+      "description": "Si el plan est\u00e1 disponible para nuevas suscripciones"
+    },
+    "destacado": {
+      "type": "boolean",
+      "default": false,
+      "description": "Si es el plan recomendado/destacado"
+    },
+    "orden": {
+      "type": "number",
+      "description": "Orden de visualizaci\u00f3n",
+      "default": 0
+    }
+  },
+  "required": [
+    "nombre"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

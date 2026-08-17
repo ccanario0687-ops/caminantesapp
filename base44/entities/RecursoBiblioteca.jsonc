@@ -1,0 +1,106 @@
+{
+  "name": "RecursoBiblioteca",
+  "type": "object",
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "description": "T\u00edtulo del recurso"
+    },
+    "categoria": {
+      "type": "string",
+      "enum": [
+        "Canciones",
+        "Pistas de Canciones",
+        "Materiales Palanca",
+        "Historia de Ema\u00fas",
+        "Lucas 24:13-35",
+        "Documentos",
+        "Otro"
+      ],
+      "description": "Categor\u00eda del recurso"
+    },
+    "descripcion": {
+      "type": "string",
+      "description": "Descripci\u00f3n del recurso"
+    },
+    "tipo_recurso": {
+      "type": "string",
+      "enum": [
+        "Archivo",
+        "URL Externa"
+      ],
+      "default": "URL Externa",
+      "description": "Tipo de recurso: archivo subido o enlace externo"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL del recurso (archivo subido o enlace externo)"
+    },
+    "letra": {
+      "type": "string",
+      "description": "Letra de la canci\u00f3n (si aplica)"
+    },
+    "orden": {
+      "type": "number",
+      "description": "Orden de visualizaci\u00f3n dentro de la categor\u00eda"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "titulo",
+    "categoria"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    }
+  }
+}

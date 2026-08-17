@@ -1,0 +1,60 @@
+{
+  "name": "HistorialRetiro",
+  "type": "object",
+  "properties": {
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero del retiro archivado"
+    },
+    "parroquia": {
+      "type": "string",
+      "description": "Nombre de la parroquia o comunidad del retiro"
+    },
+    "fecha_archivo": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha en que se archiv\u00f3 el retiro"
+    },
+    "total_caminantes": {
+      "type": "number",
+      "description": "Total de caminantes en este retiro"
+    },
+    "total_servidores": {
+      "type": "number",
+      "description": "Total de servidores en este retiro"
+    },
+    "caminantes": {
+      "type": "string",
+      "description": "JSON serializado con la lista de caminantes"
+    },
+    "servidores": {
+      "type": "string",
+      "description": "JSON serializado con la lista de servidores"
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas adicionales del retiro"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "numero_retiro"
+  ],
+  "rls": {
+    "create": null,
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "name": "ModeradorDia",
+  "type": "object",
+  "properties": {
+    "fecha": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha del d\u00eda al que pertenece el moderador"
+    },
+    "turno": {
+      "type": "string",
+      "enum": [
+        "Ma\u00f1ana",
+        "Tarde",
+        "Noche"
+      ],
+      "description": "Turno del d\u00eda"
+    },
+    "nombre": {
+      "type": "string",
+      "description": "Nombre del moderador asignado al turno"
+    },
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero de retiro asociado"
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas adicionales"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "fecha",
+    "turno",
+    "numero_retiro"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    }
+  }
+}

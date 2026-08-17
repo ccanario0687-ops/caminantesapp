@@ -1,0 +1,124 @@
+{
+  "name": "Programacion",
+  "type": "object",
+  "properties": {
+    "fecha": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha de la actividad"
+    },
+    "hora_inicio": {
+      "type": "string",
+      "description": "Hora de inicio (HH:MM)"
+    },
+    "hora_fin": {
+      "type": "string",
+      "description": "Hora de fin (HH:MM)"
+    },
+    "tiempo_minutos": {
+      "type": "number",
+      "description": "Duraci\u00f3n en minutos"
+    },
+    "actividad": {
+      "type": "string",
+      "description": "Nombre de la actividad a realizar"
+    },
+    "responsable": {
+      "type": "string",
+      "description": "Primer responsable de la actividad"
+    },
+    "responsable_2": {
+      "type": "string",
+      "description": "Segundo responsable de la actividad (opcional)"
+    },
+    "equipo": {
+      "type": "string",
+      "description": "Equipo responsable de la actividad (ej: Cocina, Liturgia, M\u00fasica, Log\u00edstica)"
+    },
+    "materiales": {
+      "type": "string",
+      "description": "Materiales a utilizar en la actividad"
+    },
+    "descripcion": {
+      "type": "string",
+      "description": "Descripci\u00f3n adicional de la actividad"
+    },
+    "ubicacion": {
+      "type": "string",
+      "description": "Ubicaci\u00f3n donde se realiza la actividad"
+    },
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero de retiro asociado"
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas adicionales"
+    },
+    "resaltar": {
+      "type": "boolean",
+      "default": false,
+      "description": "Indica si la actividad debe resaltarse (negrita) en el programa"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "fecha",
+    "hora_inicio",
+    "actividad",
+    "numero_retiro"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    }
+  }
+}

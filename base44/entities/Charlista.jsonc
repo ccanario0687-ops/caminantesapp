@@ -1,0 +1,122 @@
+{
+  "name": "Charlista",
+  "type": "object",
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "description": "Nombre completo del charlista"
+    },
+    "profesion": {
+      "type": "string",
+      "description": "Profesi\u00f3n o especialidad"
+    },
+    "email": {
+      "type": "string",
+      "description": "Correo electr\u00f3nico"
+    },
+    "telefono": {
+      "type": "string",
+      "description": "Tel\u00e9fono de contacto"
+    },
+    "parroquia": {
+      "type": "string",
+      "description": "Parroquia de procedencia"
+    },
+    "temas": {
+      "type": "string",
+      "description": "Temas sobre los que puede hablar"
+    },
+    "experiencia": {
+      "type": "string",
+      "description": "Descripci\u00f3n de experiencia relevante"
+    },
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero de retiro asignado"
+    },
+    "fecha_charla": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha de la charla"
+    },
+    "hora_charla": {
+      "type": "string",
+      "description": "Hora de la charla (HH:MM)"
+    },
+    "duracion_minutos": {
+      "type": "number",
+      "description": "Duraci\u00f3n de la charla en minutos"
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "Confirmado",
+        "Pendiente",
+        "Cancelado"
+      ],
+      "default": "Pendiente",
+      "description": "Estado de confirmaci\u00f3n"
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas adicionales"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "nombre"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "name": "SolicitudAcceso",
+  "type": "object",
+  "properties": {
+    "nombre_comunidad": {
+      "type": "string",
+      "description": "Nombre de la comunidad o hermandad"
+    },
+    "nombre_contacto": {
+      "type": "string",
+      "description": "Nombre del coordinador/contacto"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email de contacto"
+    },
+    "telefono": {
+      "type": "string",
+      "description": "Tel\u00e9fono de contacto"
+    },
+    "pais": {
+      "type": "string",
+      "description": "Pa\u00eds"
+    },
+    "ciudad": {
+      "type": "string",
+      "description": "Ciudad o provincia"
+    },
+    "plan_solicitado": {
+      "type": "string",
+      "enum": [
+        "Gratuito",
+        "B\u00e1sico",
+        "Premium"
+      ],
+      "default": "Gratuito",
+      "description": "Plan solicitado"
+    },
+    "mensaje": {
+      "type": "string",
+      "description": "Mensaje o comentario adicional"
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "Pendiente",
+        "Aprobado",
+        "Rechazado",
+        "En Contacto"
+      ],
+      "default": "Pendiente",
+      "description": "Estado de la solicitud"
+    },
+    "notas_admin": {
+      "type": "string",
+      "description": "Notas internas del administrador"
+    }
+  },
+  "required": [
+    "nombre_comunidad",
+    "email",
+    "nombre_contacto"
+  ],
+  "rls": {
+    "create": null,
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

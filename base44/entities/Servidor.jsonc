@@ -1,0 +1,162 @@
+{
+  "name": "Servidor",
+  "type": "object",
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "description": "Nombre completo del servidor"
+    },
+    "edad": {
+      "type": "number",
+      "description": "Edad del servidor"
+    },
+    "fecha_nacimiento": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha de nacimiento del servidor"
+    },
+    "genero": {
+      "type": "string",
+      "enum": [
+        "Masculino",
+        "Femenino"
+      ],
+      "description": "G\u00e9nero del servidor"
+    },
+    "telefono": {
+      "type": "string",
+      "description": "N\u00famero de tel\u00e9fono"
+    },
+    "parroquia": {
+      "type": "string",
+      "description": "Parroquia de procedencia"
+    },
+    "rol": {
+      "type": "string",
+      "enum": [
+        "Coordinador",
+        "Sub-Rector",
+        "Jefe de Servidores",
+        "Servidor de Mesa",
+        "M\u00fasico",
+        "Cocina",
+        "Log\u00edstica",
+        "Otro"
+      ],
+      "description": "Rol o funci\u00f3n del servidor en el retiro"
+    },
+    "equipo_trabajo": {
+      "type": "string",
+      "description": "Nombre del equipo de trabajo al que pertenece"
+    },
+    "es_lider_equipo": {
+      "type": "boolean",
+      "default": false,
+      "description": "Indica si este servidor es el l\u00edder/responsable"
+    },
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero de retiro al que pertenece"
+    },
+    "numero_mesa": {
+      "type": "number",
+      "description": "N\u00famero de mesa que atiende"
+    },
+    "numero_habitacion": {
+      "type": "number",
+      "description": "N\u00famero de habitaci\u00f3n asignada"
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "Confirmado",
+        "Pendiente",
+        "Cancelado"
+      ],
+      "default": "Pendiente",
+      "description": "Estado del servidor"
+    },
+    "pago_ficha": {
+      "type": "string",
+      "enum": [
+        "Pendiente",
+        "Pagado"
+      ],
+      "default": "Pendiente",
+      "description": "Estado de pago de ficha"
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas adicionales"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "nombre"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    }
+  }
+}

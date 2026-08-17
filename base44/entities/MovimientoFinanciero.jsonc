@@ -1,0 +1,91 @@
+{
+  "name": "MovimientoFinanciero",
+  "type": "object",
+  "properties": {
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "cuota_caminante",
+        "cuota_servidor",
+        "donacion",
+        "gasto",
+        "ingreso"
+      ],
+      "description": "Tipo de movimiento"
+    },
+    "descripcion": {
+      "type": "string",
+      "description": "Descripci\u00f3n del movimiento"
+    },
+    "monto": {
+      "type": "number",
+      "description": "Monto del movimiento"
+    },
+    "metodo_pago": {
+      "type": "string",
+      "enum": [
+        "Efectivo",
+        "Transferencia",
+        "Patrocinado"
+      ],
+      "default": "Efectivo",
+      "description": "M\u00e9todo de pago de la cuota (no aplica a gastos)"
+    },
+    "patrocinador": {
+      "type": "string",
+      "description": "Nombre de quien patrocina la ficha (solo cuando metodo_pago = Patrocinado)"
+    },
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero de retiro asociado"
+    },
+    "caminante_id": {
+      "type": "string",
+      "description": "ID del caminante (para cuotas caminante)"
+    },
+    "servidor_id": {
+      "type": "string",
+      "description": "ID del servidor (para cuotas servidor)"
+    },
+    "caminante_nombre": {
+      "type": "string",
+      "description": "Nombre del caminante o servidor"
+    },
+    "fecha": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha del movimiento"
+    },
+    "registrado_por": {
+      "type": "string",
+      "description": "Nombre de usuario o email de quien registr\u00f3 el movimiento"
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas adicionales"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "tipo",
+    "monto",
+    "numero_retiro"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "AuditLog",
+  "type": "object",
+  "properties": {
+    "usuario_email": {
+      "type": "string",
+      "description": "Email del usuario que ejecutó la acción"
+    },
+    "usuario_nombre": {
+      "type": "string",
+      "description": "Nombre del usuario que ejecutó la acción"
+    },
+    "accion": {
+      "type": "string",
+      "description": "Tipo de acción ejecutada (ej: Aprobar Usuario, Modificar Permisos, Crear Caminante, Modificar Registro)"
+    },
+    "entidad": {
+      "type": "string",
+      "description": "Entidad afectada (User, SolicitudAcceso, Caminante, Servidor, Finanzas, ConfigRetiro)"
+    },
+    "detalles": {
+      "type": "string",
+      "description": "Detalles o descripción del cambio realizado"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID de la comunidad/equipo"
+    }
+  },
+  "required": [
+    "usuario_email",
+    "accion",
+    "entidad"
+  ],
+  "rls": {
+    "create": null,
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

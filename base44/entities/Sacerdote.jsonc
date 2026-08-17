@@ -1,0 +1,116 @@
+{
+  "name": "Sacerdote",
+  "type": "object",
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "description": "Nombre completo del sacerdote"
+    },
+    "telefono": {
+      "type": "string",
+      "description": "N\u00famero de tel\u00e9fono"
+    },
+    "email": {
+      "type": "string",
+      "description": "Correo electr\u00f3nico"
+    },
+    "parroquia": {
+      "type": "string",
+      "description": "Parroquia de procedencia"
+    },
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero de retiro asignado"
+    },
+    "fecha_participacion": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha de participaci\u00f3n en el retiro"
+    },
+    "hora_participacion": {
+      "type": "string",
+      "description": "Hora de participaci\u00f3n (HH:MM)"
+    },
+    "rol": {
+      "type": "string",
+      "enum": [
+        "Celebrante",
+        "Concelebrante",
+        "Predicador",
+        "Otra"
+      ],
+      "description": "Rol en el retiro"
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "Confirmado",
+        "Pendiente",
+        "Cancelado"
+      ],
+      "default": "Pendiente",
+      "description": "Estado de confirmaci\u00f3n"
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas adicionales"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "nombre"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "es_plataforma": true
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    }
+  }
+}

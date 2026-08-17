@@ -1,0 +1,101 @@
+{
+  "name": "PresupuestoRetiro",
+  "type": "object",
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "description": "Nombre del presupuesto (ej: Presupuesto Retiro #12)"
+    },
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero de retiro asociado"
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "Borrador",
+        "En Revisi\u00f3n",
+        "Aprobado",
+        "Ejecutado"
+      ],
+      "default": "Borrador",
+      "description": "Estado del presupuesto"
+    },
+    "total_presupuestado": {
+      "type": "number",
+      "description": "Total presupuestado calculado",
+      "default": 0
+    },
+    "total_existente": {
+      "type": "number",
+      "description": "Total de lo que ya se tiene en valor",
+      "default": 0
+    },
+    "total_adicional_requerido": {
+      "type": "number",
+      "description": "Total adicional de dinero necesario para cubrir la diferencia",
+      "default": 0
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas generales del presupuesto"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "nombre"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    }
+  }
+}

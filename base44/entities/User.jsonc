@@ -1,0 +1,43 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "Rol del usuario en el sistema",
+      "enum": [
+        "admin",
+        "user"
+      ],
+      "default": "user"
+    },
+    "permisos_modulos": {
+      "type": "string",
+      "description": "JSON con permisos por m\u00f3dulo del sistema"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo (comunidad/tenant) al que pertenece el usuario. Aislamiento l\u00f3gico multi-inquilino."
+    },
+    "nombre_equipo": {
+      "type": "string",
+      "description": "Nombre legible de la comunidad/equipo al que pertenece el usuario"
+    },
+    "username": {
+      "type": "string",
+      "description": "Nombre de usuario personalizado para visualizaci\u00f3n (ej: CCANARIO)"
+    },
+    "es_plataforma": {
+      "type": "boolean",
+      "default": false,
+      "description": "Indica si el usuario es el administrador de la plataforma (dueño), con acceso total cross-inquilino. Solo este rol puede ver datos de todas las comunidades."
+    },
+    "codigo_autorizacion": {
+      "type": "string",
+      "description": "Código PIN o clave de autorización personal enlazada al usuario para autorizar transacciones delicadas y reversos."
+    }
+  },
+  "required": [
+    "role"
+  ]
+}

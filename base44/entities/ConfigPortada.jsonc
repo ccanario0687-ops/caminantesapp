@@ -1,0 +1,91 @@
+{
+  "name": "ConfigPortada",
+  "type": "object",
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "description": "T\u00edtulo principal de la portada",
+      "default": "Hermandad de Ema\u00fas"
+    },
+    "subtitulo": {
+      "type": "string",
+      "description": "Subt\u00edtulo o eslogan de la portada",
+      "default": "Lucas 24, 13-35"
+    },
+    "versiculo": {
+      "type": "string",
+      "description": "Vers\u00edculo b\u00edblico a mostrar"
+    },
+    "versiculo_referencia": {
+      "type": "string",
+      "description": "Referencia del vers\u00edculo (ej: Lucas 24, 32)"
+    },
+    "foto_fondo_url": {
+      "type": "string",
+      "description": "URL de la imagen de fondo"
+    },
+    "foto_principal_url": {
+      "type": "string",
+      "description": "URL de la foto principal (imagen circular central)"
+    },
+    "color_fondo_inicio": {
+      "type": "string",
+      "description": "Color de inicio del gradiente de fondo (hex)",
+      "default": "#5c1a00"
+    },
+    "color_fondo_medio": {
+      "type": "string",
+      "description": "Color medio del gradiente (hex)",
+      "default": "#8B1a1a"
+    },
+    "color_fondo_fin": {
+      "type": "string",
+      "description": "Color final del gradiente (hex)",
+      "default": "#b8860b"
+    },
+    "color_titulo": {
+      "type": "string",
+      "description": "Color del texto del t\u00edtulo (hex)",
+      "default": "#ffffff"
+    },
+    "color_subtitulo": {
+      "type": "string",
+      "description": "Color del subt\u00edtulo (hex)",
+      "default": "#fcd34d"
+    },
+    "color_boton": {
+      "type": "string",
+      "description": "Color del bot\u00f3n de ingreso (hex)",
+      "default": "#f59e0b"
+    },
+    "texto_boton": {
+      "type": "string",
+      "description": "Texto del bot\u00f3n de ingreso",
+      "default": "Ingresar al Sistema"
+    },
+    "mostrar_imagen_circular": {
+      "type": "boolean",
+      "description": "Mostrar imagen circular central",
+      "default": true
+    }
+  },
+  "required": [],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

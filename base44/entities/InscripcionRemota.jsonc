@@ -1,0 +1,231 @@
+{
+  "name": "InscripcionRemota",
+  "type": "object",
+  "properties": {
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "Caminante",
+        "Servidor"
+      ],
+      "description": "Tipo de participante"
+    },
+    "rol_en_mesa": {
+      "type": "string",
+      "enum": [
+        "Caminante",
+        "L\u00edder de Mesa"
+      ],
+      "default": "Caminante",
+      "description": "Rol del participante en la mesa (para caminantes)"
+    },
+    "nombre": {
+      "type": "string",
+      "description": "Nombre completo"
+    },
+    "apodo": {
+      "type": "string",
+      "description": "Apodo o nombre con el que se le conoce"
+    },
+    "cedula": {
+      "type": "string",
+      "description": "N\u00famero de c\u00e9dula de identidad"
+    },
+    "edad": {
+      "type": "number",
+      "description": "Edad"
+    },
+    "fecha_nacimiento": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha de nacimiento"
+    },
+    "genero": {
+      "type": "string",
+      "enum": [
+        "Masculino",
+        "Femenino"
+      ],
+      "description": "G\u00e9nero"
+    },
+    "estado_civil": {
+      "type": "string",
+      "description": "Estado civil"
+    },
+    "ocupacion": {
+      "type": "string",
+      "description": "Ocupaci\u00f3n u oficio"
+    },
+    "email": {
+      "type": "string",
+      "description": "Correo electr\u00f3nico"
+    },
+    "telefono": {
+      "type": "string",
+      "description": "N\u00famero de tel\u00e9fono"
+    },
+    "parroquia": {
+      "type": "string",
+      "description": "Parroquia de procedencia"
+    },
+    "direccion": {
+      "type": "string",
+      "description": "Direcci\u00f3n de residencia"
+    },
+    "calle": {
+      "type": "string",
+      "description": "Calle de residencia"
+    },
+    "sector": {
+      "type": "string",
+      "description": "Sector o barrio de residencia"
+    },
+    "municipio": {
+      "type": "string",
+      "description": "Municipio de residencia"
+    },
+    "provincia": {
+      "type": "string",
+      "description": "Provincia de residencia"
+    },
+    "padrino_madrina": {
+      "type": "string",
+      "description": "Nombre del padrino o madrina (para caminantes)"
+    },
+    "telefono_padrino": {
+      "type": "string",
+      "description": "Tel\u00e9fono del padrino o madrina"
+    },
+    "contacto_emergencia": {
+      "type": "string",
+      "description": "Nombre del contacto de emergencia"
+    },
+    "relacion_emergencia": {
+      "type": "string",
+      "description": "Relaci\u00f3n del contacto de emergencia (ej: Madre, Esposa, Hermano)"
+    },
+    "telefono_emergencia": {
+      "type": "string",
+      "description": "Tel\u00e9fono del contacto de emergencia"
+    },
+    "rol_servidor": {
+      "type": "string",
+      "description": "Rol como servidor (si aplica)"
+    },
+    "sacramento": {
+      "type": "string",
+      "description": "Sacramento principal solicitado"
+    },
+    "bautismo": {
+      "type": "boolean",
+      "default": false,
+      "description": "Ha recibido el Bautismo"
+    },
+    "confirmacion": {
+      "type": "boolean",
+      "default": false,
+      "description": "Ha recibido la Confirmaci\u00f3n"
+    },
+    "comunion": {
+      "type": "boolean",
+      "default": false,
+      "description": "Ha recibido la Primera Comuni\u00f3n"
+    },
+    "matrimonio": {
+      "type": "boolean",
+      "default": false,
+      "description": "Ha recibido el Matrimonio"
+    },
+    "peso_kg": {
+      "type": "number",
+      "description": "Peso en kilogramos"
+    },
+    "talla_cm": {
+      "type": "number",
+      "description": "Estatura en cent\u00edmetros"
+    },
+    "talla_camisa": {
+      "type": "string",
+      "enum": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL",
+        "XXXL"
+      ],
+      "description": "Talla de camisa"
+    },
+    "tipo_sangre": {
+      "type": "string",
+      "enum": [
+        "A+",
+        "A-",
+        "B+",
+        "B-",
+        "AB+",
+        "AB-",
+        "O+",
+        "O-"
+      ],
+      "description": "Tipo de sangre"
+    },
+    "necesidades_medicas": {
+      "type": "string",
+      "description": "Condiciones m\u00e9dicas o alergias"
+    },
+    "condicion_fisica": {
+      "type": "string",
+      "enum": [
+        "Ninguna",
+        "Movilidad reducida",
+        "Usa bast\u00f3n/andador",
+        "Silla de ruedas",
+        "Otra"
+      ],
+      "default": "Ninguna",
+      "description": "Condici\u00f3n f\u00edsica especial"
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "Pendiente",
+        "Aprobado",
+        "Rechazado",
+        "Lista de Espera",
+        "No Asistir\u00e1"
+      ],
+      "default": "Pendiente",
+      "description": "Estado de la solicitud"
+    },
+    "numero_ficha": {
+      "type": "number",
+      "description": "N\u00famero de ficha asignado al aprobar (si aplica)"
+    },
+    "notas_coordinador": {
+      "type": "string",
+      "description": "Notas del coordinador al revisar la solicitud"
+    },
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero de retiro al que aplica"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "nombre",
+    "tipo",
+    "parroquia",
+    "telefono"
+  ],
+  "rls": {
+    "create": null,
+    "read": null,
+    "update": null,
+    "delete": null
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "name": "ConfigRetiro",
+  "type": "object",
+  "properties": {
+    "nombre_retiro": {
+      "type": "string",
+      "description": "Nombre del retiro"
+    },
+    "tipo_retiro": {
+      "type": "string",
+      "enum": [
+        "Retiro Hombres",
+        "Retiro Mujeres"
+      ],
+      "description": "Tipo de retiro: hombres o mujeres"
+    },
+    "eslogan": {
+      "type": "string",
+      "description": "Eslogan o lema del retiro"
+    },
+    "edicion": {
+      "type": "string",
+      "description": "Edici\u00f3n o n\u00famero del retiro actual"
+    },
+    "pais": {
+      "type": "string",
+      "description": "Pa\u00eds oficial de la comunidad / retiro"
+    },
+    "moneda": {
+      "type": "string",
+      "description": "Moneda oficial asignada al retiro (ej: RD$, USD$, EUR$)"
+    },
+    "unidad_estatura": {
+      "type": "string",
+      "description": "Unidad de medida para la estatura (cm, m, in, ft/in)"
+    },
+    "unidad_peso": {
+      "type": "string",
+      "description": "Unidad de medida para el peso corporal (lb, kg)"
+    },
+    "bloqueado": {
+      "type": "boolean",
+      "description": "Indica si la configuraci\u00f3n est\u00e1 bloqueada contra cambios accidentales"
+    },
+    "provincia": {
+      "type": "string",
+      "description": "Provincia o di\u00f3cesis"
+    },
+    "parroquia": {
+      "type": "string",
+      "description": "Parroquia sede"
+    },
+    "fecha_inicio": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha de inicio del retiro"
+    },
+    "fecha_fin": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha de fin del retiro"
+    },
+    "lugar": {
+      "type": "string",
+      "description": "Lugar donde se realiza el retiro"
+    },
+    "logo_url": {
+      "type": "string",
+      "description": "URL o base64 del logo general del retiro"
+    },
+    "logo_hombres_url": {
+      "type": "string",
+      "description": "URL o base64 del logo para Retiro de Hombres"
+    },
+    "logo_mujeres_url": {
+      "type": "string",
+      "description": "URL o base64 del logo para Retiro de Mujeres"
+    },
+    "capacidad_mesa": {
+      "type": "number",
+      "description": "N\u00famero de personas por mesa",
+      "default": 8
+    },
+    "capacidad_habitacion": {
+      "type": "number",
+      "description": "N\u00famero de personas por habitaci\u00f3n",
+      "default": 4
+    },
+    "total_mesas": {
+      "type": "number",
+      "description": "Total de mesas disponibles"
+    },
+    "total_habitaciones": {
+      "type": "number",
+      "description": "Total de habitaciones disponibles"
+    },
+    "total_fichas": {
+      "type": "number",
+      "description": "Cantidad total de fichas disponibles para este retiro",
+      "default": 100
+    },
+    "contacto_rector": {
+      "type": "string",
+      "description": "Nombre del rector responsable"
+    },
+    "coordinador": {
+      "type": "string",
+      "description": "Nombre del coordinador principal"
+    },
+    "sub_coordinador": {
+      "type": "string",
+      "description": "Nombre del sub-coordinador"
+    },
+    "telefono_contacto": {
+      "type": "string",
+      "description": "Tel\u00e9fono de contacto"
+    },
+    "grupo_whatsapp": {
+      "type": "string",
+      "description": "Enlace del grupo de WhatsApp para servidores"
+    },
+    "config_campos_caminante": {
+      "type": "string",
+      "description": "JSON con la configuraci\u00f3n de visibilidad y obligatoriedad de campos para caminantes"
+    },
+    "config_campos_servidor": {
+      "type": "string",
+      "description": "JSON con la configuraci\u00f3n de visibilidad y obligatoriedad de campos para servidores"
+    },
+    "estilos_impresion": {
+      "type": "string",
+      "description": "JSON con los estilos personalizados de impresi\u00f3n"
+    },
+    "niveles_edificio": {
+      "type": "number",
+      "description": "N\u00famero de niveles/pisos del edificio de habitaciones",
+      "default": 2
+    },
+    "habitaciones_por_nivel": {
+      "type": "number",
+      "description": "N\u00famero de habitaciones por nivel",
+      "default": 5
+    },
+    "roles_servidores": {
+      "type": "string",
+      "description": "JSON con la lista de roles disponibles para servidores"
+    },
+    "roles_caminantes": {
+      "type": "string",
+      "description": "JSON con la lista de roles disponibles para caminantes"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    },
+    "comunidad_id": {
+      "type": "string",
+      "description": "ID de la comunidad a la que pertenece este registro"
+    }
+  },
+  "required": [
+    "nombre_retiro"
+  ],
+  "rls": {
+    "create": null,
+    "read": null,
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

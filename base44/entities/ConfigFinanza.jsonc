@@ -1,0 +1,75 @@
+{
+  "name": "ConfigFinanza",
+  "type": "object",
+  "properties": {
+    "precio_ficha_caminante": {
+      "type": "number",
+      "description": "Precio de ficha para caminantes",
+      "default": 0
+    },
+    "precio_ficha_servidor": {
+      "type": "number",
+      "description": "Precio de ficha para servidores",
+      "default": 0
+    },
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero de retiro actual"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    }
+  }
+}

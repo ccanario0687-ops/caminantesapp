@@ -1,0 +1,26 @@
+{
+  "name": "Retiro de Emaús",
+  "short_name": "Emaús",
+  "description": "Sistema de gestión del Retiro de Emaús — Hermandad de Emaús",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fffbeb",
+  "theme_color": "#92400e",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "https://media.base44.com/images/public/69e8403342580bac45e5b3bd/bfe0a604b_generated_image.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://media.base44.com/images/public/69e8403342580bac45e5b3bd/bfe0a604b_generated_image.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

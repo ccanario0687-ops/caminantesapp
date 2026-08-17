@@ -1,0 +1,107 @@
+{
+  "name": "MenuRetiro",
+  "type": "object",
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "description": "Nombre del men\u00fa (ej: Almuerzo S\u00e1bado, Cena de Bienvenida)"
+    },
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "Desayuno",
+        "Almuerzo",
+        "Cena",
+        "Merienda",
+        "Otro"
+      ],
+      "default": "Almuerzo",
+      "description": "Tipo de comida"
+    },
+    "fecha": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha en que se servir\u00e1 el men\u00fa"
+    },
+    "numero_retiro": {
+      "type": "number",
+      "description": "N\u00famero de retiro asociado"
+    },
+    "num_personas": {
+      "type": "number",
+      "description": "N\u00famero de personas a servir (calculado de inscritos o manual)",
+      "default": 0
+    },
+    "usar_inscritos": {
+      "type": "boolean",
+      "default": true,
+      "description": "Si true, calcula personas de inscritos confirmados; si false, usa num_personas manual"
+    },
+    "total_estimado": {
+      "type": "number",
+      "description": "Total estimado del men\u00fa (calculado)",
+      "default": 0
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas adicionales"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "nombre"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    }
+  }
+}

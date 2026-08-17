@@ -1,0 +1,95 @@
+{
+  "name": "IngredienteMenu",
+  "type": "object",
+  "properties": {
+    "menu_id": {
+      "type": "string",
+      "description": "ID del men\u00fa al que pertenece este ingrediente/producto"
+    },
+    "nombre": {
+      "type": "string",
+      "description": "Nombre del producto o ingrediente (ej: Arroz, Pollo, Pan)"
+    },
+    "cantidad_por_persona": {
+      "type": "number",
+      "description": "Cantidad necesaria por persona",
+      "default": 0
+    },
+    "unidad": {
+      "type": "string",
+      "description": "Unidad de medida (ej: libra, onza, unidad, taza, porci\u00f3n)",
+      "default": "unidad"
+    },
+    "costo_unitario": {
+      "type": "number",
+      "description": "Costo estimado por unidad (RD$)",
+      "default": 0
+    },
+    "suplidor_nombre": {
+      "type": "string",
+      "description": "Nombre del suplidor sugerido"
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas adicionales"
+    },
+    "equipo_id": {
+      "type": "string",
+      "description": "ID del equipo al que pertenece este registro"
+    }
+  },
+  "required": [
+    "nombre",
+    "menu_id"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.equipo_id": "{{user.data.equipo_id}}"
+        }
+      ]
+    }
+  }
+}
