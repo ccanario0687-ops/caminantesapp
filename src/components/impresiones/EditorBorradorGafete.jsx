@@ -430,16 +430,46 @@ export default function EditorBorradorGafete({ config, configId, tipoDoc, estilo
 
   const guardar = async () => {
     setSaving(true);
-    if (configId) {
+    let targetId = configId;
+    let configExistente = config;
+
+    try {
+      if (!targetId) {
+        const cfgs = await base44.entities.ConfigRetiro.list().catch(() => []);
+        if (cfgs.length > 0) {
+          targetId = cfgs[0].id;
+          configExistente = cfgs[0];
+        }
+      }
+
       let allEstilos = {};
-      try { if (config?.estilos_impresion) allEstilos = JSON.parse(config.estilos_impresion); } catch {}
+      try {
+        if (configExistente?.estilos_impresion) {
+          allEstilos = typeof configExistente.estilos_impresion === "string" ? JSON.parse(configExistente.estilos_impresion) : configExistente.estilos_impresion;
+        }
+      } catch {}
+
       const estilosActuales = allEstilos[tipoDoc] || {};
       allEstilos[tipoDoc] = { ...estilosActuales, borrador: bloques, usarBorrador: true };
-      await base44.entities.ConfigRetiro.update(configId, { estilos_impresion: JSON.stringify(allEstilos) });
+
+      if (targetId) {
+        await base44.entities.ConfigRetiro.update(targetId, {
+          estilos_impresion: JSON.stringify(allEstilos)
+        });
+      } else {
+        await base44.entities.ConfigRetiro.create({
+          nombre_retiro: config?.nombre_retiro || "Retiro de Emaús",
+          estilos_impresion: JSON.stringify(allEstilos)
+        });
+      }
+      toast.success("☁️ Borrador homologado y guardado en la nube DB para todos los dispositivos");
+    } catch (e) {
+      console.error("Error al guardar borrador en Nube DB:", e);
+      toast.error("Borrador guardado localmente (error de red)");
+    } finally {
+      setSaving(false);
+      onGuardado(tipoDoc, { ...estilosIniciales, borrador: bloques, usarBorrador: true });
     }
-    toast.success("Borrador guardado");
-    setSaving(false);
-    onGuardado(tipoDoc, { ...estilosIniciales, borrador: bloques, usarBorrador: true });
   };
 
   return (

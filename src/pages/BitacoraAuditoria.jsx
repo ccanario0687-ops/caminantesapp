@@ -55,17 +55,38 @@ export default function BitacoraAuditoria() {
   const cargarLogs = async () => {
     setLoading(true);
     try {
-      // 1. Cargar desde API Base44
-      const dbLogs = await base44.entities.BitacoraAuditoria?.list("-fecha_hora").catch(() => []) || [];
+      // 1. Cargar desde API Base44 (BitacoraAuditoria y AuditLog centralizados)
+      const [dbLogs1, dbLogs2] = await Promise.all([
+        base44.entities.BitacoraAuditoria?.list("-fecha_hora").catch(() => []) || [],
+        base44.entities.AuditLog?.list("-created_date").catch(() => []) || [],
+      ]);
+
+      // Normalizar registros de AuditLog a formato BitacoraAuditoria
+      const dbLogs2Normalizados = (dbLogs2 || []).map(l => ({
+        id: l.id || `audit-${l.created_date || Date.now()}`,
+        fecha_hora: l.fecha_hora || l.created_date || l.created_at || new Date().toISOString(),
+        usuario_email: l.usuario_email || "Sistema",
+        usuario_nombre: l.usuario_nombre || l.usuario_email || "Usuario",
+        accion: (l.accion || "MODIFICACION").toUpperCase(),
+        modulo: l.entidad || l.modulo || "General",
+        detalle: l.detalles || l.detalle || "",
+        entidad: l.entidad || "General",
+        entidad_id: l.equipo_id || l.entidad_id || ""
+      }));
       
       // 2. Cargar desde LocalStorage
       const localLogs = obtenerLogsAuditoriaLocal();
 
-      // Fusionar y deduplicar por id o fecha
+      // Fusionar y deduplicar por id o fecha + usuario + detalle
       const unificadosMap = new Map();
 
-      [...dbLogs, ...localLogs].forEach(l => {
-        if (l && l.id) unificadosMap.set(l.id, l);
+      [...dbLogs1, ...dbLogs2Normalizados, ...localLogs].forEach(l => {
+        if (l) {
+          const key = l.id || `${l.usuario_email}_${l.fecha_hora}_${l.detalle}`;
+          if (!unificadosMap.has(key)) {
+            unificadosMap.set(key, l);
+          }
+        }
       });
 
       const unificados = Array.from(unificadosMap.values()).sort((a, b) => 

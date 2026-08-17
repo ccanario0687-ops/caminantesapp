@@ -43,13 +43,28 @@ export async function registrarAuditoria({ usuario, accion, entidad, detalles, e
     console.warn("[AUDITORIA] Error en respaldo local:", e);
   }
 
-  // 2. Guardar en Base44 si la entidad o función está disponible
+  // 2. Guardar en Nube DB Base44 (BitacoraAuditoria y AuditLog)
   try {
+    const payloadBitacora = {
+      id: "audit_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5),
+      fecha_hora: new Date().toISOString(),
+      usuario_email: email,
+      usuario_nombre: nombre,
+      accion: (accion || "MODIFICACION").toUpperCase(),
+      modulo: entidad || "General",
+      detalle: typeof detalles === "object" ? JSON.stringify(detalles) : String(detalles || ""),
+      entidad: entidad || "General",
+      entidad_id: String(equipoIdFinal)
+    };
+
+    if (base44.entities?.BitacoraAuditoria?.create) {
+      base44.entities.BitacoraAuditoria.create(payloadBitacora).catch(() => null);
+    }
     if (base44.entities?.AuditLog?.create) {
-      await base44.entities.AuditLog.create(payload);
+      base44.entities.AuditLog.create(payload).catch(() => null);
     }
   } catch (err) {
-    console.warn("[AUDITORIA] Fallback local activo. Base44 AuditLog not sync:", err?.message);
+    console.warn("[AUDITORIA] Fallback local activo:", err?.message);
   }
 
   // Notificar cambio
