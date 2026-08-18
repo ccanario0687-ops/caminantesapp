@@ -126,12 +126,28 @@ export default function useOffline(entityName) {
 
   const create = useCallback(
     async (data) => {
+      // Inyectar metadatos de tenant de forma segura
+      let dataFinal = data;
+      try {
+        const savedTenant = localStorage.getItem("comunidad_activa_obj");
+        const tenantObj = savedTenant ? JSON.parse(savedTenant) : null;
+        if (tenantObj && (tenantObj.id || tenantObj.equipo_id) && tenantObj.id !== "global") {
+          const tenantId = String(tenantObj.id || tenantObj.equipo_id);
+          dataFinal = {
+            ...data,
+            equipo_id: data.equipo_id || tenantId,
+            comunidad_id: data.comunidad_id || tenantId,
+            _tenant_secured: true
+          };
+        }
+      } catch {}
+
       if (online) {
         const tempId = "temp_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
-        const optimistic = { ...data, id: tempId, _id: tempId, created_date: new Date().toISOString() };
+        const optimistic = { ...dataFinal, id: tempId, _id: tempId, created_date: new Date().toISOString() };
         setRecords((prev) => [optimistic, ...prev]);
         try {
-          const result = await base44.entities[entityName].create(data);
+          const result = await base44.entities[entityName].create(dataFinal);
           const resolvedId = String(result.id || result._id || tempId).trim();
           const resultNormalizado = { ...result, id: resolvedId, _id: resolvedId };
           setRecords((prev) => prev.map((r) => (r.id === tempId ? resultNormalizado : r)));
@@ -142,7 +158,7 @@ export default function useOffline(entityName) {
         }
       } else {
         const tempId = "temp_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
-        const record = { ...data, id: tempId, _id: tempId, created_date: new Date().toISOString() };
+        const record = { ...dataFinal, id: tempId, _id: tempId, created_date: new Date().toISOString() };
         await applyLocalMutation(entityName, "create", tempId, record);
         await queueMutation(entityName, tempId, "create", record);
         setRecords((prev) => [record, ...prev]);

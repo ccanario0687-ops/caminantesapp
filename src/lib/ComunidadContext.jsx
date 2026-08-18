@@ -1,6 +1,8 @@
-// ComunidadContext.jsx - Contexto Global con Control Total para Creador y Aislamiento para Admins
+// ComunidadContext.jsx - Contexto Global con Aislamiento Multi-Tenant Enterprise
 import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import { useAuth } from '@/lib/AuthContext';
+import { getActiveTenantId, validateTenantAccess } from '@/lib/enterpriseTenantGuard';
+import { registrarAuditoria } from '@/lib/auditoria';
 
 const APP_CREATOR_EMAIL = "ccanario0687@gmail.com";
 const ComunidadContext = createContext();
@@ -39,7 +41,8 @@ export function ComunidadProvider({ children }) {
         id: idAsignado,
         equipo_id: idAsignado,
         nombre: nombreAsignado,
-        slug: user.slug || idAsignado
+        slug: user.slug || idAsignado,
+        _secured: true
       };
       setComunidadActual(objAsignado);
       localStorage.setItem("comunidad_activa_obj", JSON.stringify(objAsignado));
@@ -47,17 +50,33 @@ export function ComunidadProvider({ children }) {
   }, [user, esCreador]);
 
   const cambiarComunidad = (comunidad) => {
-    if (!esCreador) {
-      console.warn("🔒 Acción bloqueada: Solo el Creador Global puede cambiar de comunidad.");
+    const validacion = validateTenantAccess(user, comunidadActual, comunidad?.id || comunidad?.equipo_id);
+    if (!validacion.permitido) {
+      console.warn(validacion.razon);
       return;
     }
+
     setComunidadActual(comunidad);
     if (comunidad) {
       localStorage.setItem("comunidad_activa_obj", JSON.stringify(comunidad));
     } else {
       localStorage.removeItem("comunidad_activa_obj");
     }
+
+    // Registrar evento de auditoría de cambio de espacio de trabajo
+    try {
+      registrarAuditoria({
+        usuario: user,
+        accion: "CAMBIO_TENANT",
+        entidad: "ComunidadContext",
+        detalles: `Espacio de trabajo cambiado a: ${comunidad?.nombre || "Vista Global"}`,
+        equipo_id: comunidad?.id || "global"
+      });
+    } catch {}
   };
+
+  // ID del Inquilino activo
+  const activeTenantId = useMemo(() => getActiveTenantId(user, comunidadActual), [user, comunidadActual]);
 
   // 🌐 Variable que indica si se está visualizando todo globalmente
   const esVistaGlobal = esCreador && (!comunidadActual || comunidadActual.id === "global" || comunidadActual.slug === "global");
@@ -69,6 +88,8 @@ export function ComunidadProvider({ children }) {
         cambiarComunidad,
         esCreador,
         esVistaGlobal,
+        activeTenantId,
+        isTenantSecured: true,
       }}
     >
       {children}
