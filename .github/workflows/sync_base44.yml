@@ -1,0 +1,28 @@
+name: Sincronizar Entidades Base44 en Vivo
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  sincronizar_base44:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Clonar código del repositorio
+        uses: actions/checkout@v4
+
+      - name: 🟢 Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Instalar dependencias
+        run: npm ci
+
+      - name: 🚀 Ejecutar Script de Sincronización a Base44
+        env:
+          VITE_BASE44_APP_ID: ${{ secrets.VITE_BASE44_APP_ID || '69e8403342580bac45e5b3bd' }}
+        run: node scripts/setup_complete_app.js
